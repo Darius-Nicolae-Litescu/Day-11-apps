@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="true" monitoring="autodetect" dynamicConfig="true"
+         schemaLocation="https://www.w3.org/2001/XMLSchema-instance ">
+
+    <diskStore path="java.io.tmpdir/ehcache"/>
+
+    <defaultCache eternal="false"
+                  timeToIdleSeconds="120" timeToLiveSeconds="120" diskSpoolBufferSizeMB="25"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LRU" statistics="true">
+    </defaultCache>
+
+    <cache name="HibernateCache" eternal="false" timeToIdleSeconds="5" timeToLiveSeconds="10">
+    </cache>
+
+    <cache name="org.hibernate.cache.internal.StandardQueryCache" eternal="false" timeToLiveSeconds="120">
+    </cache>
+
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache" eternal="true">
+    </cache>
+</ehcache>

@@ -27,7 +27,7 @@ public class MainRunner {
         Instant currentDateInstant = LocalDateTime.now().toInstant(ZoneOffset.UTC);
         Savings savings = new Savings("Check", Date.from(currentDateInstant), BigDecimal.valueOf(2999.98D), BigDecimal.valueOf(1D), Date.from(currentDateInstant));
         Savings savings2 = new Savings("Cash", Date.from(currentDateInstant), BigDecimal.valueOf(4245.245D), BigDecimal.valueOf(66.2D), Date.from(currentDateInstant));
-        BankAccount bankAccount = new BankAccount(1L, "Darius", houseAddress, houseAddress, branchAddress);
+        BankAccount bankAccount = new BankAccount(2L, "Darius", houseAddress, houseAddress, branchAddress);
         bankAccount.setFixedDeposits(Arrays.asList(savings, savings2));
         bankAccount.setVerificationDocuments(Arrays.asList(document, document2, document3));
 

@@ -1,10 +1,7 @@
 package darius.operations;
 
 import darius.model.BankAccount;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.List;
 
@@ -19,16 +16,32 @@ public class BankAccountOperations {
 
     public List<BankAccount> getAllBankAccounts() {
         openSessionIfClosed();
-        List<BankAccount> bankAccountList = session.createQuery("from BankAccount").list();
+        session.beginTransaction();
+        Query hibernateQuery = session.createQuery("from BankAccount");
+        List<BankAccount> bankAccountList = hibernateQuery
+                .setCacheMode(CacheMode.PUT)
+                .setCacheable(true)
+                .list();
+        session.getTransaction().commit();
         return bankAccountList;
     }
 
     public BankAccount findBankAccountById(Long id) {
-        openSessionIfClosed();
+//        openSessionIfClosed();
+        this.session = sessionFactory.openSession();
+        System.out.println(  "Session "+session.isOpen());
         BankAccount bankAccount = (BankAccount) session.get(BankAccount.class, id);
+        this.session.close();
         return bankAccount;
     }
-
+/*
+    public BankAccount findBankAccountById2(Long id) {
+        //openSessionIfClosed();
+        BankAccount bankAccount = (BankAccount) session.load(BankAccount.class, id);
+        //session.close();
+        return bankAccount;
+    }
+*/
     public void persistBankAccount(BankAccount bankAccount) {
         openSessionIfClosed();
         Transaction tx = null;
@@ -47,8 +60,16 @@ public class BankAccountOperations {
     }
 
     private void openSessionIfClosed() {
-        if (!session.isConnected() || session == null) {
+        if (!session.isOpen() || session == null) {
             this.session = sessionFactory.openSession();
         }
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Session getSession() {
+        return session;
     }
 }

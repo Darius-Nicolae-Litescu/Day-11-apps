@@ -1,5 +1,7 @@
 package darius.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Bank_Account")
+@Cacheable
+
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region="HibernateCache")
 public class BankAccount implements Serializable {
     @Id
     @Column(name = "account_number")
