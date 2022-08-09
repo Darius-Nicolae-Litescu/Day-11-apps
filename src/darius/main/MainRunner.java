@@ -17,7 +17,9 @@ import java.util.Date;
 public class MainRunner {
 
     public static void main(String[] args) {
-        BankAccountOperations bankAccountOperations = new BankAccountOperations(SessionFactoryUtil.getFactory());
+        SessionFactoryUtil sessionFactoryUtil = new SessionFactoryUtil();
+        sessionFactoryUtil.initializeFactory();
+        BankAccountOperations bankAccountOperations = new BankAccountOperations(sessionFactoryUtil.getFactory());
 
         Address houseAddress = new Address("Nr.50", "Dambovita", "Romania");
         Address branchAddress = new Address("Nr.55", "Delhi", "India");

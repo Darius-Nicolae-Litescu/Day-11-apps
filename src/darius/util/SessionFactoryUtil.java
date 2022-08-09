@@ -5,17 +5,20 @@ import org.hibernate.cfg.Configuration;
 
 public class SessionFactoryUtil {
 
-    static SessionFactory factory;
+    private SessionFactory factory;
 
-    static {
+    public SessionFactoryUtil() {
+    }
+
+    public void initializeFactory() {
         System.out.println("------------- Static block start -------------");
         Configuration cfg = new Configuration();
-        factory = cfg.configure().buildSessionFactory();
+        this.factory = cfg.configure().buildSessionFactory();
         System.out.println("------------- Static block end -------------");
     }
 
-    public static SessionFactory getFactory() {
-        return factory; // database connection factory
+    public SessionFactory getFactory() {
+        return factory;
     }
 
 

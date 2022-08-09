@@ -27,21 +27,13 @@ public class BankAccountOperations {
     }
 
     public BankAccount findBankAccountById(Long id) {
-//        openSessionIfClosed();
-        this.session = sessionFactory.openSession();
-        System.out.println(  "Session "+session.isOpen());
-        BankAccount bankAccount = (BankAccount) session.get(BankAccount.class, id);
-        this.session.close();
-        return bankAccount;
-    }
-/*
-    public BankAccount findBankAccountById2(Long id) {
-        //openSessionIfClosed();
+        openSessionIfClosed();
+        System.out.println("Session " + session.isOpen());
         BankAccount bankAccount = (BankAccount) session.load(BankAccount.class, id);
-        //session.close();
+        session.close();
         return bankAccount;
     }
-*/
+
     public void persistBankAccount(BankAccount bankAccount) {
         openSessionIfClosed();
         Transaction tx = null;
@@ -60,7 +52,7 @@ public class BankAccountOperations {
     }
 
     private void openSessionIfClosed() {
-        if (!session.isOpen() || session == null) {
+        if ( session == null || !session.isOpen()) {
             this.session = sessionFactory.openSession();
         }
     }
@@ -72,4 +64,9 @@ public class BankAccountOperations {
     public Session getSession() {
         return session;
     }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
 }

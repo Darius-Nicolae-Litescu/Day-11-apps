@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name = "Bank_Account")
 @Cacheable
 
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region="HibernateCache")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region="HibernateCache")
 public class BankAccount implements Serializable {
     @Id
     @Column(name = "account_number")
@@ -130,12 +130,12 @@ public class BankAccount implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankAccount that = (BankAccount) o;
-        return Objects.equals(accountNumber, that.accountNumber) && Objects.equals(accountHolderName, that.accountHolderName) && Objects.equals(verificationDocuments, that.verificationDocuments) && Objects.equals(fixedDeposits, that.fixedDeposits) && Objects.equals(clientAddress, that.clientAddress) && Objects.equals(communicationAddress, that.communicationAddress) && Objects.equals(branchAddress, that.branchAddress);
+        return Objects.equals(accountNumber, that.accountNumber) && Objects.equals(accountHolderName, that.accountHolderName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountNumber, accountHolderName, verificationDocuments, fixedDeposits, clientAddress, communicationAddress, branchAddress);
+        return Objects.hash(accountNumber, accountHolderName);
     }
 
     @Override
@@ -143,11 +143,6 @@ public class BankAccount implements Serializable {
         return "BankAccount{" +
                 "accountNumber=" + accountNumber +
                 ", accountHolderName='" + accountHolderName + '\'' +
-                ", verificationDocuments=" + verificationDocuments +
-                ", fixedDeposits=" + fixedDeposits +
-                ", clientAddress=" + clientAddress +
-                ", communicationAddress=" + communicationAddress +
-                ", branchAddress=" + branchAddress +
                 '}';
     }
 }
